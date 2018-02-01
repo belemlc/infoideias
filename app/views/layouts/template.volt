@@ -15,12 +15,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{{ link_to(['for':'site.inicio']) }}">Real State</a>
+                    {{ link_to(['for':'site.inicio'], 'Real State', "class":"navbar-brand") }}
                 </div>
                 <div id="navbar" class="navbar-collapse collapse navbar-right">
                     <ul class="nav navbar-nav">
-                    <li class="active">{{ link_to(['for':'site.inicio'], 'Início') }}</li>
-                    <li>{{ link_to(['for':'site.imovel.listar'], 'Cadastro de Imóveis') }}</li>
+                    <li class="active">{{ link_to(['for':'site.inicio'], 'Início', "id": "router-inicio") }}</li>
+                    <li>{{ link_to(['for':'site.imovel.listar'], 'Imóveis', "id": "router-imovel") }}</li>
                     </ul>
                 </div>
             </div>

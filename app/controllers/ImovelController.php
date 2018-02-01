@@ -7,7 +7,7 @@ class ImovelController extends Controller
 
 	public function listarAction()
 	{
-
+        $this->view->imoveis = Imovel::find();
     }
     
 
