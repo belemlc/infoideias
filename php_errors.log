@@ -1,0 +1,2 @@
+[02-Feb-2018 11:14:56 UTC] PHP Warning:  Phalcon\Mvc\View\Engine\Volt\Compiler::compileFile(../app/compiled-templates/%%home%%ubuntu%%workspace%%app%%views%%layouts%%template.volt%%e%%.compiled): failed to open stream: Permission denied in /home/ubuntu/workspace/public/index.php on line 89
+[02-Feb-2018 11:15:15 UTC] PHP Warning:  Phalcon\Mvc\View\Engine\Volt\Compiler::compileFile(../app/compiled-templates/%%home%%ubuntu%%workspace%%app%%views%%layouts%%template.volt%%e%%.compiled): failed to open stream: Permission denied in /home/ubuntu/workspace/public/index.php on line 89
