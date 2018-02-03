@@ -13,7 +13,13 @@ class ImovelController extends Controller
 
     public function adicionarAction()
 	{
-	    $this->view->tipos = TipoImovel::find();
+	    if ($this->request->isPost()) {
+            $data = $this->request->getPost();
+            $imovel = new Imovel();
+
+        }
+        $this->view->tipos = TipoImovel::find();
+	    $this->view->filiais = Filial::find();
     }
     
     public function editarAction($id)

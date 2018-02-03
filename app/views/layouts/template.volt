@@ -4,7 +4,8 @@
         <title>Avaliação InfoIdéias</title>
         <meta charset="utf-8">
         <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
+        <link type="text/css" rel="stylesheet" href="/css/font-awesome.min.css">
+        <link type="text/css" rel="stylesheet" href="/css/styles.css">
     </head>
     <body>
         <nav class="navbar navbar-inverse">
@@ -27,8 +28,7 @@
             </div>
         </nav>
         {% block content %}{% endblock %}
-        <!-- Styles/Scripts-->
-        <link type="text/css" rel="stylesheet" href="/css/styles.css">
+        <!--Scripts-->
         <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/js/scripts.js"></script>

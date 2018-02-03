@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Avaliação InfoIdéias</title>
+        <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
+        <link type="text/css" rel="stylesheet" href="/css/font-awesome.min.css">
+        <link type="text/css" rel="stylesheet" href="/css/styles.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <?= $this->tag->linkTo([['for' => 'site.inicio'], 'Real State', 'class' => 'navbar-brand']) ?>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                    <li class="active"><?= $this->tag->linkTo([['for' => 'site.inicio'], 'Início', 'id' => 'router-inicio']) ?></li>
+                    <li><?= $this->tag->linkTo([['for' => 'site.imovel.listar'], 'Imóveis', 'id' => 'router-imovel']) ?></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h1>Listar Imóveis</h1>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Buscar</h3>
+                </div>
+                <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3" class="input-group">
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-xs-12 col-sm-3" class="input-group">
+                                <select name="tipo_imovel_id" id="tipo_imovel_id" class="form-control">
+                                    <option value="1">Casa</option>
+                                    <option value="2">Apartamento</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-3"><input type="submit" value="Buscar" class="btn btn-success"></div>
+                            <div class="col-xs-12 col-sm-3 text-right">
+                                <?= $this->tag->linkTo([['for' => 'site.imovel.adicionar'], 'Adicionar Novo', 'class' => 'btn btn-primary']) ?>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <!-- Lista -->
+                            <div class="col-xs-12">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Tipo de Imóvel</th>
+                                        <th>Valor do Imóvel</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                    <?php foreach ($imoveis as $imovel) { ?>
+                                    <tr>
+                                        <td><?= $imovel->codigo ?></td>
+                                        <td><?= $imovel->getTipoImovel()->nome ?></td>
+                                        <td>R$ <?= $imovel->getValorVenda() ?></td>
+                                        <td></td>
+                                    </tr>
+                                    <?php } ?>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!--Scripts-->
+        <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/scripts.js"></script>
+    </body>
+</html>

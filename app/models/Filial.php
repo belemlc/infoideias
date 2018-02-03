@@ -1,14 +1,15 @@
-<?php 
+<?php
 
 use Phalcon\Mvc\Model;
 
-class TipoImovel extends Model {
-    
+class Filial extends Model
+{
+
     public $id;
     public $nome;
-    
-    public function initalize() {
-        $this->hasMany('id', 'Imovel', 'tipo_imovel_id');
+
+    public function initialize() {
+        $this->setSource('filial');
     }
 
     public function getNome() {
@@ -20,5 +21,5 @@ class TipoImovel extends Model {
     }
 
 
-    
+
 }
