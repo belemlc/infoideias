@@ -22,7 +22,8 @@
             </div>
         </div>
         <div class="panel-body">
-            <form action="" method="post">
+            <!--<form action="save" method="post">-->
+            {{ form('imoveis/save', 'role': 'form') }}
                 <div class="row">
                     <div class="col-xs-12">
                         <div>
@@ -50,35 +51,25 @@
                                                 <div class="col-sm-2 col-md-2">
                                                     <div class="form-group">
                                                         <label for="">Tipo Imovel</label>
-                                                        <select name="tipo_imovel" id="" class="form-control">
-                                                            <option value="">Selecione</option>
-                                                            {% for tipo in tipos %}
-                                                            <option value="{{tipo.id}}">{{tipo.nome}}</option>
-                                                            {% endFor %}
-                                                        </select>
+                                                        {{ form.render('tipo_imovel', ['class': 'form-control']) }}
                                                     </div>
                                                 </div>
                                                 <div class="cold-sm-2 col-md-2">
                                                     <div class="form-group">
                                                         <label for="">Filial</label>
-                                                        <select name="filial" class="form-control">
-                                                            <option value="">Selecione</option>
-                                                            {% for filial in filiais %}
-                                                            <option value="{{filial.id}}">{{filial.nome}}</option>
-                                                            {% endFor %}
-                                                        </select>
+                                                        {{ form.render('filial', ['class': 'form-control']) }}
                                                     </div>
                                                 </div>
                                                 <div class="cold-sm-2 col-md-2">
                                                     <div class="form-group">
                                                         <label for="">Código</label>
-                                                        <input type="text" name="codigo" class="form-control" placeholder="Código">
+                                                        {{ form.render('codigo', ['class': 'form-control']) }}
                                                     </div>
                                                 </div>
                                                 <div class="cold-sm-6 col-md-6">
                                                     <div class="form-group">
                                                         <label for="">Título do Imóvel</label>
-                                                        <input type="text" name="titulo" class="form-control" placeholder="Informe uma Título">
+                                                        {{ form.render('titulo_imovel', ['class': 'form-control']) }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -86,7 +77,7 @@
                                                 <div class="cold-sm-12 col-md-12">
                                                     <div class="form-group">
                                                         <label for="">Descrição do Imóvel</label>
-                                                        <textarea name="descricao" rows="3" class="form-control"></textarea>
+                                                        {{ form.render('descricao', ['rows': '3','class': 'form-control']) }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -98,34 +89,22 @@
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <div class="row">
-                                                <div class="cold-sm-2 col-md-2">
+                                                <div class="cold-sm-5 col-md-5">
                                                     <div class="form-group">
-                                                        <label for="">Cep</label>
-                                                        <input name="cep" type="text" class="form-control cep" placeholder="Cep">
+                                                        <label for="">Logradouro</label>
+                                                        {{ form.render('logradouro', ['class': 'form-control', 'placeholder': 'Logradouro']) }}
                                                     </div>
                                                 </div>
                                                 <div class="cold-sm-4 col-md-4">
                                                     <div class="form-group">
-                                                        <label for="">Logradouro</label>
-                                                        <input type="text" name="logradouro" id="logradouro" class="form-control" placeholder="Logradouro">
+                                                        <label for="">Bairro</label>
+                                                        {{ form.render('bairro', ['class': 'form-control', 'placeholder': 'Bairro']) }}
                                                     </div>
                                                 </div>
                                                 <div class="cold-sm-3 col-md-3">
                                                     <div class="form-group">
-                                                        <label for="">Bairro</label>
-                                                        <input type="text" name="bairro" id="bairro" class="form-control" placeholder="Bairro">
-                                                    </div>
-                                                </div>
-                                                <div class="cold-sm-1 col-md-1">
-                                                    <div class="form-group">
                                                         <label for="">Número</label>
-                                                        <input type="text" name="numero" id="numero" class="form-control" placeholder="Nº">
-                                                    </div>
-                                                </div>
-                                                <div class="cold-sm-2 col-md-2">
-                                                    <div class="form-group">
-                                                        <label for="">Complemento</label>
-                                                        <input type="text" class="form-control" placeholder="Complemento">
+                                                        {{ form.render('numero', ['class': 'form-control', 'placeholder': 'Nº']) }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,12 +119,11 @@
                                                 <div class="col-sm-3 col-md-3">
                                                     <label for="">Tipo de Venda</label>
                                                     <div class="form-group">
-                                                        <label class="radio-inline">
-                                                            <input type="radio" name="tipo_negocio" value="venda"> Venda
-                                                        </label>
-                                                        <label class="radio-inline">
-                                                            <input type="radio" name="tipo_negocio" value="aluguel"> Aluguel
-                                                        </label>
+                                                        {{ form.render('venda') }}
+                                                        {{ form.label('venda')}}
+                                                        &nbsp;&nbsp;
+                                                        {{ form.render('aluguel')}}
+                                                        {{form.label('aluguel')}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -154,11 +132,11 @@
                                                     <div class="form-group">
                                                     <span id="ipt-venda" style="display: none">
                                                         <label for="">Valor do Venda</label>
-                                                        <input type="text" class="form-control" placeholder="R$0,00">
+                                                        {{ form.render('valor_venda', ['class': 'form-control money', 'placeholder': 'R$0,00']) }}
                                                     </span>
                                                         <span id="ipt-aluguel" style="display: none">
                                                         <label for="">Valor da Aluguel</label>
-                                                        <input type="text" class="form-control" placeholder="R$0,00">
+                                                        {{ form.render('valor_aluguel', ['class': 'form-control money', 'placeholder': 'R$0,00']) }}
                                                     </span>
                                                     </div>
                                                 </div>
@@ -170,9 +148,11 @@
                                 <div role="tabpanel" class="tab-pane" id="imagens">
                                     <div class="panel panel-default">
                                         <div class="panel-body">
-                                            <div class="photo-upload"></div>
+                                            <div class="form-group">
+                                                <label>Foto do Imóvel</label>
+                                                {{ form.render('imovel_imagem') }}
+                                            </div>
                                             <!--Colocar aqui o Upload da imagem *validação de formato, jpg/jpeg e png apenas.-->
-                                            <div class="clone"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -183,29 +163,25 @@
                                                 <div class="col-sm-2 col-md-2">
                                                     <div class="form-group">
                                                         <label for="">Qtd. de Dormitórios</label>
-                                                        <input type="number" name="" class="form-control"
-                                                               placeholder="Quantidade"/>
+                                                        {{ form.render('dormitorios', ['type': 'number', 'class': 'form-control', 'placeholder': 'Quantidade']) }}
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2 col-md-2">
                                                     <div class="form-group">
                                                         <label for="">Qtd. de Banheiros</label>
-                                                        <input type="number" name="" class="form-control"
-                                                               placeholder="Quantidade"/>
+                                                        {{ form.render('banheiros', ['class': 'form-control', 'placeholder': 'Qunatidade']) }}
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2 col-md-2">
                                                     <div class="form-group">
                                                         <label for="">Área do Terreno (m2)</label>
-                                                        <input type="number" name="" class="form-control"
-                                                               placeholder="Área do Terreno"/>
+                                                        {{ form.render('area_terreno', ['class': 'form-control', 'placeholder': 'Área do Terreno']) }}
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2 col-md-2">
                                                     <div class="form-group">
                                                         <label for="">Vagas na Garagem</label>
-                                                        <input type="number" name="" class="form-control"
-                                                               placeholder="Vagas na Garagem"/>
+                                                        {{ form.render('vagas_garagem', ['class': 'form-control', 'placeholder': 'Vagas na Garagem']) }}
                                                     </div>
                                                 </div>
                                             </div>
