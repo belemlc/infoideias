@@ -63,6 +63,12 @@ const DefaultConfig = (function () {
             $('.bairro').chosen({no_results_text: chosenMessage, width: '100%'});
             $('.logradouro').chosen({no_results_text: chosenMessage, width: '100%'});
             $('.money').mask('000.000.000.000.000,00', {reverse: true});
+            if (parseFloat($('#valor_venda').val()) > 0) {
+                $('#valor_aluguel').val('');
+            }
+            if (parseFloat($('#valor_aluguel').val()) > 0) {
+                $('#valor_venda').val('');
+            }
         }
     }
 })();
@@ -94,15 +100,15 @@ const TipoNegocio = (function () {
     return {
         init: function (tipo) {
             if (tipo === 'V') {
-                $('#ipt-aluguel').hide();
-                $('#ipt-venda').show();
-                $('#ipt-venda').find('input').focus();
-                $('#ipt-venda').find('input').val('');
+                $('#valor_aluguel').prop('readonly', true);
+                $('#valor_venda').prop('readonly', false);
+                $('#valor_aluguel').val('');
+                $('#valor_venda').focus();
             } else if (tipo === 'A') {
-                $('#ipt-venda').hide();
-                $('#ipt-aluguel').show();
-                $('#ipt-aluguel').find('input').focus();
-                $('#ipt-aluguel').find('input').val('');
+                $('#valor_aluguel').prop('readonly', false);
+                $('#valor_venda').prop('readonly', true);
+                $('#valor_venda').val('');
+                $('#valor_aluguel').focus();
             }
         }
     }
