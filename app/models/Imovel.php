@@ -176,6 +176,7 @@ class Imovel extends Model
      *
      * @param $imagem
      * @param string $type
+     * @param int $qualidade
      */
     public function ajustaImageToUpload($imagem, $type = 'jpg', $qualidade = 60) {
 
