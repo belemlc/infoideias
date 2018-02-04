@@ -30,6 +30,10 @@ class Imovel extends Model
         $this->belongsTo('logradouro_id', 'Logradouro', 'id');
     }
 
+    public function getId() {
+        return $this->id;
+    }
+
     public function getCodigo() {
         return $this->codigo;
     }
@@ -165,5 +169,53 @@ class Imovel extends Model
             return str_replace($search, $replace, $valor);
         }
         return number_format($valor, 2,',', '.');
+    }
+
+    /**
+     * Pega uma imagem e reduz sua qualidade para ocupar menos espaço
+     *
+     * @param $imagem
+     * @param string $type
+     */
+    public function ajustaImageToUpload($imagem, $type = 'jpg', $qualidade = 60) {
+
+        switch ($type) {
+            case 'jpeg':
+                $source_image = imagecreatefromjpeg($imagem);
+                $source_imagex = imagesx($source_image);
+                $source_imagey = imagesy($source_image);
+                $dest_image = imagecreatetruecolor($source_imagex, $source_imagey);
+                imagecopyresampled($dest_image, $source_image, 0, 0, 0, 0, $source_imagex,
+                    $source_imagey, $source_imagex, $source_imagey);
+                imagejpeg($dest_image, $imagem, $qualidade);
+                break;
+            case 'png':
+                $source_image = imagecreatefrompng($imagem);
+                $source_imagex = imagesx($source_image);
+                $source_imagey = imagesy($source_image);
+                $dest_image = imagecreatetruecolor($source_imagex, $source_imagey);
+                imagecopyresampled($dest_image, $source_image, 0, 0, 0, 0, $source_imagex,
+                    $source_imagey, $source_imagex, $source_imagey);
+                imagepng($dest_image, $imagem, $qualidade);
+                break;
+            case 'gif':
+                $source_image = imagecreatefromgif($imagem);
+                $source_imagex = imagesx($source_image);
+                $source_imagey = imagesy($source_image);
+                $dest_image = imagecreatetruecolor($source_imagex, $source_imagey);
+                imagecopyresampled($dest_image, $source_image, 0, 0, 0, 0, $source_imagex,
+                    $source_imagey, $source_imagex, $source_imagey);
+                imagegif($dest_image, $imagem, $qualidade);
+                break;
+            default:
+                $source_image = imagecreatefromjpeg($imagem);
+                $source_imagex = imagesx($source_image);
+                $source_imagey = imagesy($source_image);
+                $dest_image = imagecreatetruecolor($source_imagex, $source_imagey);
+                imagecopyresampled($dest_image, $source_image, 0, 0, 0, 0, $source_imagex,
+                    $source_imagey, $source_imagex, $source_imagey);
+                imagejpeg($dest_image, $imagem, $qualidade);
+                break;
+        }
     }
 }

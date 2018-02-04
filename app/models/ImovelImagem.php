@@ -6,6 +6,8 @@ class ImovelImagem extends Model
 {
     /* Dica: Olhar Schema do Banco de dados para criar os atributos e relacionamentos corretamente */
     public $id;
+    public $caminho;
+    public $imovel_id;
 
     public function initialize()
     {
