@@ -44,6 +44,7 @@ class ImovelController extends Controller
                 } else {
                     $imovel = new Imovel();
                 }
+
                 # Recebe os dados via post e converte para objeto
                 $form = new ImovelForm;
                 $this->view->form = $form;
@@ -63,16 +64,27 @@ class ImovelController extends Controller
                 $imovel->setVagasGaragem($data->vagas_garagem);
                 $imovel->setTituloImovel($data->titulo_imovel);
                 $imovel->setDescricao($data->descricao);
-                $imovel->setPublicado($data->publicado);
-                $imovel->setDataExpiracao($data->data_expiracao);
+                if (isset($data->publicado) && $data->data_expiracao !== '') {
+                    $imovel->setPublicado($data->publicado);
+                    $imovel->setDataExpiracao($data->data_expiracao);
+                }
                 # Save
                 if ($imovel->save()) {
-
-                    //$this->flash->success("Imovel adicionado com sucesso!");
-
-                    $this->dispatcher->forward([
-                        "action" => "listar"
-                    ]);
+                    if($this->request->hasFiles()) {
+                        $uploadPath = BASE_PATH.'/public/upload/';
+                        foreach ($this->request->getUploadedFiles() as $file) {
+                            $imagemPath = $uploadPath . $file->getName();
+                            $imagem = new ImovelImagem();
+                            $imagem->caminho = $imagemPath;
+                            $imagem->imovel_id = $imovel->getId();
+                            if ($imagem->save()) {
+                                $file->moveTo($imagemPath);
+                                $imovel->ajustaImageToUpload($imagemPath, $file->getExtension());
+                            }
+                        }
+                    }
+                    $this->flash->success("Imovel adicionado com sucesso!");
+                    $this->response->redirect('imoveis/');
                 }
             } catch (Exception $e) {
 	            echo $e->getMessage();
@@ -109,9 +121,7 @@ class ImovelController extends Controller
 	    $imovel = Imovel::findFirstById($id);
 
 	    if ($imovel->delete()) {
-            $this->dispatcher->forward([
-                "action" => "listar"
-            ]);
+            $this->response->redirect('imoveis/');
         }
     }
     
