@@ -37,16 +37,21 @@ class ImovelController extends Controller
     public function saveAction() {
 	    if ($this->request->isPost()) {
 
-	        $id = $this->request->getPost("id", "int");
-
 	        try {
-                $imovel = new Imovel();
+                $id = $this->request->getPost("id", "int");
+                if ($id) {
+                    $imovel = Imovel::findFirstById($id);
+                } else {
+                    $imovel = new Imovel();
+                }
                 # Recebe os dados via post e converte para objeto
+                $form = new ImovelForm;
+                $this->view->form = $form;
                 $data = (object) $this->request->getPost();
                 # Setters Imovel
                 $imovel->setCodigo($data->codigo);
                 $imovel->setTipoImovelId($data->tipo_imovel);
-                $imovel->setFilial($data->filial);
+                $imovel->setFilialId($data->filial);
                 $imovel->setLogradouroId($data->logradouro);
                 $imovel->setNumero($data->numero);
                 $imovel->setTipoNegocio($data->tipo_negocio);
@@ -62,8 +67,10 @@ class ImovelController extends Controller
                 $imovel->setDataExpiracao($data->data_expiracao);
                 # Save
                 if ($imovel->save()) {
+
+                    //$this->flash->success("Imovel adicionado com sucesso!");
+
                     $this->dispatcher->forward([
-                        "controller" => "imovel",
                         "action" => "listar"
                     ]);
                 }
@@ -75,12 +82,37 @@ class ImovelController extends Controller
     
     public function editarAction($id)
 	{
+        $imovel = Imovel::findFirstById($id);
+        $this->view->form = new ImovelForm($imovel, array('edit' => true));
 
+        if ($this->request->isPost() && $this->request->isAjax()) {
+            $response = new Response();
+            if ($this->request->getPost("bairro")) {
+                $bairro = $this->request->getPost("bairro");
+                $logradouro = Logradouro::find("bairro_id = {$bairro}");
+                $response->setStatusCode(200);
+                $response->setJsonContent($logradouro);
+            } if ($this->request->getPost("codigo")) {
+                $codigo = $this->request->getPost("codigo");
+                $hasCodigo = Imovel::find("codigo = '{$codigo}'")->count();
+                $response->setStatusCode(200);
+                $response->setJsonContent($hasCodigo);
+            }
+            $this->response->setContentType('application/json');
+            $response->send();
+            exit;
+        }
     }
     
-    public function removerAction($id)
-	{
+    public function removerAction($id) {
 
+	    $imovel = Imovel::findFirstById($id);
+
+	    if ($imovel->delete()) {
+            $this->dispatcher->forward([
+                "action" => "listar"
+            ]);
+        }
     }
     
     public function visualizarAction($id)
