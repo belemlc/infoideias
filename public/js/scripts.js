@@ -1,35 +1,103 @@
 $(function () {
-    let activeLink = location.pathname.split("/");
-    if (activeLink[1] === "") {
-        $('#router-imovel').parent().removeClass('active');
-        $('#router-inicio').parent().addClass('active');
-    } else {
-        $('#router-inicio').parent().removeClass('active');
-        $('#router-imovel').parent().addClass('active');
-    }
 
-    $('input[name="tipo_negocio"]').on('click', function () {
-        let tipo = $(this).val();
-        console.log(tipo);
-        if (tipo === 'venda') {
-            $('#ipt-aluguel').hide();
-            $('#ipt-venda').show();
-            $('#ipt-venda').find('input').focus();
-        } else if (tipo === 'aluguel') {
-            $('#ipt-venda').hide();
-            $('#ipt-aluguel').show();
-            $('#ipt-aluguel').find('input').focus();
+    DefaultConfig.init();
+    ActiveMenu.init();
+
+    $('.publicado').on('change', function () {
+        if (this.checked) {
+            $('.expirado').prop('disabled', false);
+            $('.expirado').datepicker({
+                format: 'dd/mm/yyyy',
+                startDate: '+1d',
+                language: 'pt-BR'
+            });
+        } else {
+            $('.expirado').val('');
+            $('.expirado').prop('disabled', true);
         }
     });
 
-    $('.cep').on('blur', function () {
-        let cep = $(this).val();
-        Cep.get(cep);
+    $('.bairro').on('change', function () {
+        let bairro = $(this).val();
+        let url = '/imoveis/adicionar/';
+        $.post(url, {bairro: bairro}, function () {
+            //
+        }).done(function (response) {
+            response.forEach(function (data) {
+                let options = `<option value="${data.id}">${data.tipo} ${data.nome}</option>`;
+                $('.logradouro').append(options);
+                $('.logradouro').trigger("chosen:updated");
+            })
+
+        }).fail(function (err) {
+            console.log(`Error: ${err}`)
+        })
     });
 
-    Imagem.init();
-
+    $('input[name="tipo_negocio"]').on('click', function () {
+        let tipo = $(this).val();
+        TipoNegocio.init(tipo);
+    });
 });
+
+
+/**
+ * Algumas configuraçoes padrão
+ * @type {{init}}
+ */
+const DefaultConfig = (function () {
+    return {
+        init: function () {
+            let chosenMessage = 'Não foi possivel localizar: ';
+            $('.tipo-imovel').chosen({no_results_text: chosenMessage, width: '100%'});
+            $('.filial').chosen({no_results_text: chosenMessage, width: '100%'});
+            $('.bairro').chosen({no_results_text: chosenMessage, width: '100%'});
+            $('.logradouro').chosen({no_results_text: chosenMessage, width: '100%'});
+            $('.money').mask('000.000.000.000.000,00', {reverse: true});
+        }
+    }
+})();
+
+/**
+ * Ativa o menu de acordo com a rota
+ * @type {{init}}
+ */
+const ActiveMenu = (function () {
+    return {
+        init: function () {
+            let activeLink = location.pathname.split("/");
+            if (activeLink[1] === "") {
+                $('#router-imovel').parent().removeClass('active');
+                $('#router-inicio').parent().addClass('active');
+            } else {
+                $('#router-inicio').parent().removeClass('active');
+                $('#router-imovel').parent().addClass('active');
+            }
+        }
+    }
+})();
+
+/**
+ * Mostra o campo do tipo selecionado
+ * @type {{init}}
+ */
+const TipoNegocio = (function () {
+    return {
+        init: function (tipo) {
+            if (tipo === 'V') {
+                $('#ipt-aluguel').hide();
+                $('#ipt-venda').show();
+                $('#ipt-venda').find('input').focus();
+                $('#ipt-venda').find('input').val('');
+            } else if (tipo === 'A') {
+                $('#ipt-venda').hide();
+                $('#ipt-aluguel').show();
+                $('#ipt-aluguel').find('input').focus();
+                $('#ipt-aluguel').find('input').val('');
+            }
+        }
+    }
+})();
 
 /**
  *
@@ -68,25 +136,6 @@ const Imagem = (function () {
                 </div>
             `;
             return template;
-        }
-    }
-})();
-
-
-const Cep = (function () {
-    return {
-        get: function (cep) {
-            let url = `https://viacep.com.br/ws/${cep}/json/`;
-            $.get(url, function (data) {
-
-            }).done(function (res) {
-                console.log(res);
-                $('#logradouro').prop('value', res.logradouro);
-                $('#bairro').prop('value', res.bairro);
-                $('#numero').focus();
-            }).fail(function (err) {
-                console.log('Err: ', err);
-            })
         }
     }
 })();
