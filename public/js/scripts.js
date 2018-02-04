@@ -5,15 +5,15 @@ $(function () {
 
     $('.publicado').on('change', function () {
         if (this.checked) {
-            $('.expirado').prop('disabled', false);
-            $('.expirado').datepicker({
+            $('.data_expiracao').prop('disabled', false);
+            $('.data_expiracao').datepicker({
                 format: 'dd/mm/yyyy',
                 startDate: '+1d',
                 language: 'pt-BR'
             });
         } else {
-            $('.expirado').val('');
-            $('.expirado').prop('disabled', true);
+            $('.data_expiracao').val('');
+            $('.data_expiracao').prop('disabled', true);
         }
     });
 
