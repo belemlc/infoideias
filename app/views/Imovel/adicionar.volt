@@ -2,15 +2,10 @@
 
 {% block content %}
 
-<style type="text/css">
-    .nav-tabs.no-border {
-        border-bottom: 0 !important;
-    }
-</style>
 <div class="container">
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-home"></i></a></li>
-        <li><a href="#">Imovel</a></li>
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a href="/imoveis">Imoveis</a></li>
         <li class="active">Adicionar</li>
     </ol>
     <div class="panel panel-default">
@@ -48,16 +43,27 @@
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <div class="row">
+                                                <div class="col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                {{ form.render('publicado', ['class': 'publicado']) }} Publicado
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-sm-2 col-md-2">
                                                     <div class="form-group">
                                                         <label for="">Tipo Imovel</label>
-                                                        {{ form.render('tipo_imovel', ['class': 'form-control']) }}
+                                                        {{ form.render('tipo_imovel', ['class': 'form-control tipo-imovel']) }}
                                                     </div>
                                                 </div>
                                                 <div class="cold-sm-2 col-md-2">
                                                     <div class="form-group">
                                                         <label for="">Filial</label>
-                                                        {{ form.render('filial', ['class': 'form-control']) }}
+                                                        {{ form.render('filial', ['class': 'form-control filial']) }}
                                                     </div>
                                                 </div>
                                                 <div class="cold-sm-2 col-md-2">
@@ -66,10 +72,19 @@
                                                         {{ form.render('codigo', ['class': 'form-control']) }}
                                                     </div>
                                                 </div>
-                                                <div class="cold-sm-6 col-md-6">
+                                                <div class="cold-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label for="">Título do Imóvel</label>
                                                         {{ form.render('titulo_imovel', ['class': 'form-control']) }}
+                                                    </div>
+                                                </div>
+                                                <div class="cold-sm-2 col-md-2">
+                                                    <label>Expira em</label>
+                                                    <div class="input-group">
+                                                        {{ form.render('expirado', ['class': 'form-control expirado']) }}
+                                                        <div class="input-group-addon">
+                                                            <span class="fa fa-calendar"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -89,16 +104,16 @@
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <div class="row">
-                                                <div class="cold-sm-5 col-md-5">
-                                                    <div class="form-group">
-                                                        <label for="">Logradouro</label>
-                                                        {{ form.render('logradouro', ['class': 'form-control', 'placeholder': 'Logradouro']) }}
-                                                    </div>
-                                                </div>
                                                 <div class="cold-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label for="">Bairro</label>
-                                                        {{ form.render('bairro', ['class': 'form-control', 'placeholder': 'Bairro']) }}
+                                                        {{ form.render('bairro', ['class': 'form-control bairro']) }}
+                                                    </div>
+                                                </div>
+                                                <div class="cold-sm-5 col-md-5">
+                                                    <div class="form-group">
+                                                        <label for="">Logradouro</label>
+                                                        {{ form.render('logradouro', ['class': 'form-control logradouro']) }}
                                                     </div>
                                                 </div>
                                                 <div class="cold-sm-3 col-md-3">
