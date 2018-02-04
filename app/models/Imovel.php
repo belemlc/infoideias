@@ -8,7 +8,7 @@ class Imovel extends Model
     public $id;
     public $codigo;
     public $tipo_imovel_id;
-    public $filial;
+    public $filial_id;
     public $logradouro_id;
     public $numero;
     public $tipo_negocio;
@@ -46,13 +46,12 @@ class Imovel extends Model
         $this->tipo_imovel_id = $tipo_imovel;
     }
 
-    public function getFilial() {
-        return $this->filial;
+    public function getFilialId() {
+        return $this->filial_id;
     }
 
-    public function setFilial($filial) {
-        $this->filial = $filial;
-        return $this;
+    public function setFilialId($filial_id) {
+        $this->filial_id = $filial_id;
     }
 
     public function getLogradouroId() {
@@ -80,19 +79,19 @@ class Imovel extends Model
     }
 
     public function getValorAluguel() {
-        return $this->valor_aluguel;
+        return $this->formataMoeda($this->valor_aluguel);
     }
 
     public function setValorAluguel($valor_aluguel) {
-        $this->valor_aluguel = $valor_aluguel;
+        $this->valor_aluguel =  $this->formataMoeda($valor_aluguel, true);
     }
 
     public function getValorVenda() {
-        return number_format($this->valor_venda, 2,'.', ',');
+        return $this->formataMoeda($this->valor_venda);
     }
 
     public function setValorVenda($valor_venda) {
-        $this->valor_venda = $valor_venda;
+        $this->valor_venda =  $this->formataMoeda($valor_venda, true);
     }
 
     public function getDormitorios() {
@@ -152,10 +151,19 @@ class Imovel extends Model
     }
 
     public function getDataExpiracao() {
-        return date('d/m/Y', strtotime($this->data_expiracao));
+        return !empty($this->data_expiracao) ? date('d/m/Y', strtotime($this->data_expiracao)) : null;
     }
 
     public function setDataExpiracao($data_expiracao) {
         $this->data_expiracao = implode('-', array_reverse(explode('/', $data_expiracao)));
+    }
+
+    private function formataMoeda($valor, $float = false) {
+        if ($float) {
+            $search = array('.', ',');
+            $replace = array('', '.');
+            return str_replace($search, $replace, $valor);
+        }
+        return number_format($valor, 2,',', '.');
     }
 }
