@@ -17,8 +17,7 @@
             </div>
         </div>
         <div class="panel-body">
-            <!--<form action="save" method="post">-->
-            {{ form('imoveis/save', 'role': 'form') }}
+            {{ form('imoveis/save', 'role': 'form', 'enctype': 'multipart/form-data') }}
                 <div class="row">
                     <div class="col-xs-12">
                         <div>
