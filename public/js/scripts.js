@@ -46,6 +46,12 @@ $(function () {
         if ($(this).hasClass('has-codigo')) {
             $('.codigo').focus();
         }
+    });
+
+    $('.remover').on('click', function () {
+        if (!confirm('Remover este imovel ?')) {
+            return false;
+        }
     })
 });
 
@@ -137,47 +143,6 @@ const ValidaCodigoImovel = (function () {
                 $('#codigo-help-block').hide();
                 $('.codigo').removeClass('has-codigo');
             }
-        }
-    }
-})();
-
-/**
- *
- * @type {{init, add, remove, template}}
- */
-const Imagem = (function () {
-    let i = 0;
-    let btnRemove = '';
-    return {
-        init: function () {
-          $('.photo-upload').last().before(this.template());
-        },
-        add: function () {
-            $('.clone').last().before(this.template());
-        },
-        remove: function (i) {
-            let id = `#${i}`;
-          $(id).remove();
-        },
-        template: function () {
-            ++i;
-            if (i > 1) {
-                btnRemove = `<button type="button" onclick="Imagem.remove(${i})" class="btn btn-sm btn-danger removePhoto"><i class="fa fa-trash"></i></button>`;
-            }
-            let template = `
-                <div class="row" id="${i}"><br />
-                <div class="col-sm-4 col-md-4">
-                <div class="form-group">
-                <input type="file" name="photo[]" accept="image/png;">
-                </div>
-                </div>
-                <div class="col-sm-4 col-md-4">
-                <button type="button" onclick="Imagem.add()" class="btn btn-sm btn-success addPhoto"><i class="fa fa-plus"></i></button>
-                ${btnRemove}
-                </div>
-                </div>
-            `;
-            return template;
         }
     }
 })();
