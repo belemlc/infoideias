@@ -14,12 +14,20 @@ class ImovelController extends Controller
     public function adicionarAction() {
 	    $this->view->form = new ImovelForm;
         $response = new Response();
+
         if ($this->request->isPost() && $this->request->isAjax()) {
-            $bairro = $this->request->getPost("bairro");
-            $logradouro = Logradouro::find("bairro_id = {$bairro}");
-            $response->setStatusCode(200);
+            if ($this->request->getPost("bairro")) {
+                $bairro = $this->request->getPost("bairro");
+                $logradouro = Logradouro::find("bairro_id = {$bairro}");
+                $response->setStatusCode(200);
+                $response->setJsonContent($logradouro);
+            } if ($this->request->getPost("codigo")) {
+                $codigo = $this->request->getPost("codigo");
+                $hasCodigo = Imovel::find("codigo = '{$codigo}'")->count();
+                $response->setStatusCode(200);
+                $response->setJsonContent($hasCodigo);
+            }
             $this->response->setContentType('application/json');
-            $response->setJsonContent($logradouro);
             $response->send();
             exit;
         }
