@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ALL);
+
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Loader;
@@ -7,6 +9,8 @@ use Phalcon\Mvc\Application;
 use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Volt;
+use Phalcon\Session\Adapter\Files as SessionAdapter;
+use Phalcon\Flash\Session as FlashSession;
 
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
@@ -16,7 +20,8 @@ $loader = new Loader();
 $loader->registerDirs(
     array(
         APP_PATH . '/controllers/',
-        APP_PATH . '/models/'
+        APP_PATH . '/models/',
+        APP_PATH . '/forms/'
     )
 )->register();
 
@@ -50,6 +55,8 @@ $di->set('flash', function() {
 $di->set("voltService", function ($view, $di) {
         $volt = new Volt($view, $di);
         $volt->setOptions(["compiledPath"  => "../app/compiled-templates/","compiledExtension" => ".compiled", 'compileAlways' => true]);
+        $compiler = $volt->getCompiler();
+        $compiler->addFunction('is_a', 'is_a');
         return $volt;
     }
 );
@@ -87,6 +94,7 @@ $di->set('db', function() {
 try {
     $application = new Application($di);
     echo $application->handle()->getContent();
+    session_write_close();
 } catch (Exception $e) {
      echo "Exception: ", $e->getMessage();
 }
