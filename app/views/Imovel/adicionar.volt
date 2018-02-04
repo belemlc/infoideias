@@ -69,20 +69,20 @@
                                                 <div class="cold-sm-2 col-md-2">
                                                     <div class="form-group">
                                                         <label for="">Código</label>
-                                                        {{ form.render('codigo', ['class': 'form-control codigo']) }}
+                                                        {{ form.render('codigo', ['class': 'form-control codigo', 'placeholder': 'Código' ,'autocomplete': 'off']) }}
                                                         <small id="codigo-help-block" class="help-block" style="display: none;">Código já cadastrado</small>
                                                     </div>
                                                 </div>
                                                 <div class="cold-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label for="">Título do Imóvel</label>
-                                                        {{ form.render('titulo_imovel', ['class': 'form-control']) }}
+                                                        {{ form.render('titulo_imovel', ['class': 'form-control', 'placeholder': 'Título']) }}
                                                     </div>
                                                 </div>
                                                 <div class="cold-sm-2 col-md-2">
                                                     <label>Expira em</label>
                                                     <div class="input-group">
-                                                        {{ form.render('data_expiracao', ['class': 'form-control data_expiracao']) }}
+                                                        {{ form.render('data_expiracao', ['class': 'form-control data_expiracao', 'placeholder': '__/__/____']) }}
                                                         <div class="input-group-addon">
                                                             <span class="fa fa-calendar"></span>
                                                         </div>
@@ -146,14 +146,14 @@
                                             <div class="row">
                                                 <div class="col-sm-3 col-md-3">
                                                     <div class="form-group">
-                                                    <span id="ipt-venda" style="display: none">
                                                         <label for="">Valor do Venda</label>
                                                         {{ form.render('valor_venda', ['class': 'form-control money', 'placeholder': 'R$0,00']) }}
-                                                    </span>
-                                                        <span id="ipt-aluguel" style="display: none">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 col-md-3">
+                                                    <div class="form-group">
                                                         <label for="">Valor da Aluguel</label>
                                                         {{ form.render('valor_aluguel', ['class': 'form-control money', 'placeholder': 'R$0,00']) }}
-                                                    </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -210,7 +210,7 @@
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="text-right">
-                            <a href="#" value="Cancelar" class="btn btn-default"><i class="fa fa-close"></i> Cancelar</a>
+                            <a href="/imoveis" value="Cancelar" class="btn btn-default"><i class="fa fa-close"></i> Cancelar</a>
                             <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Salvar</button>
                         </div>
                     </div>
