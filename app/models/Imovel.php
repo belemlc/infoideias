@@ -8,7 +8,7 @@ class Imovel extends Model
     public $id;
     public $codigo;
     public $tipo_imovel_id;
-    public $filial_id;
+    public $filial;
     public $logradouro_id;
     public $numero;
     public $tipo_negocio;
@@ -16,26 +16,18 @@ class Imovel extends Model
     public $valor_aluguel;
     public $dormitorios;
     public $area_terreno;
+    public $banheiros;
     public $vagas_garagem;
     public $titulo_imovel;
     public $descricao;
-    public $cep;
+    public $publicado;
+    public $data_expiracao;
     
     public function initialize() {
         $this->setSource("imovel");
-        $this->belongsTo(
-            'tipo_imovel_id',
-            'TipoImovel', 'id',
-            ['reusable' => true]
-        );
-    }
-
-    public function getId() {
-        return $this->id;
-    }
-
-    public function setId($id) {
-        $this->id = $id;
+        $this->belongsTo('tipo_imovel_id','TipoImovel', 'id');
+        $this->belongsTo('filial_id', 'Filial', 'id');
+        $this->belongsTo('logradouro_id', 'Logradouro', 'id');
     }
 
     public function getCodigo() {
@@ -50,16 +42,17 @@ class Imovel extends Model
         return $this->tipo_imovel_id;
     }
 
-    public function setTipoImovelId($tipo_imovel_id) {
-        $this->tipo_imovel_id = $tipo_imovel_id;
+    public function setTipoImovelId($tipo_imovel) {
+        $this->tipo_imovel_id = $tipo_imovel;
     }
 
-    public function getFilialId() {
-        return $this->filial_id;
+    public function getFilial() {
+        return $this->filial;
     }
 
-    public function setFilialId($filial_id) {
-        $this->filial_id = $filial_id;
+    public function setFilial($filial) {
+        $this->filial = $filial;
+        return $this;
     }
 
     public function getLogradouroId() {
@@ -75,7 +68,7 @@ class Imovel extends Model
     }
 
     public function setNumero($numero) {
-        $this->numero = $numero;
+        $this->numero = (float) $numero;
     }
 
     public function getTipoNegocio() {
@@ -94,6 +87,14 @@ class Imovel extends Model
         $this->valor_aluguel = $valor_aluguel;
     }
 
+    public function getValorVenda() {
+        return number_format($this->valor_venda, 2,'.', ',');
+    }
+
+    public function setValorVenda($valor_venda) {
+        $this->valor_venda = $valor_venda;
+    }
+
     public function getDormitorios() {
         return $this->dormitorios;
     }
@@ -108,6 +109,14 @@ class Imovel extends Model
 
     public function setAreaTerreno($area_terreno) {
         $this->area_terreno = $area_terreno;
+    }
+
+    public function getBanheiros() {
+        return $this->banheiros;
+    }
+
+    public function setBanheiros($banheiros) {
+        $this->banheiros = $banheiros;
     }
 
     public function getVagasGaragem() {
@@ -134,17 +143,19 @@ class Imovel extends Model
         $this->descricao = $descricao;
     }
 
-    public function getCep() {
-        return $this->cep;
+    public function getPublicado() {
+        return $this->publicado;
     }
 
-    public function setCep($cep) {
-        $this->cep = $cep;
+    public function setPublicado($publicado) {
+        $this->publicado = ($publicado) ? 'S' : 'N';
     }
 
-    public function getValorVenda() {
-        return number_format($this->valor_venda, 2,'.', ',');
+    public function getDataExpiracao() {
+        return date('d/m/Y', strtotime($this->data_expiracao));
     }
 
-
+    public function setDataExpiracao($data_expiracao) {
+        $this->data_expiracao = implode('-', array_reverse(explode('/', $data_expiracao)));
+    }
 }
