@@ -20,15 +20,14 @@ $(function () {
     $('.bairro').on('change', function () {
         let bairro = $(this).val();
         let url = '/imoveis/adicionar/';
-        $.post(url, {bairro: bairro}, function () {
-            //
-        }).done(function (response) {
+        $.post(url, {bairro: bairro}, function (response) {
+            $('.logradouro').html('');
+            $('.logradouro').trigger("chosen:updated");
             response.forEach(function (data) {
                 let options = `<option value="${data.id}">${data.tipo} ${data.nome}</option>`;
                 $('.logradouro').append(options);
                 $('.logradouro').trigger("chosen:updated");
             })
-
         }).fail(function (err) {
             console.log(`Error: ${err}`)
         })
@@ -38,6 +37,16 @@ $(function () {
         let tipo = $(this).val();
         TipoNegocio.init(tipo);
     });
+
+    $('.codigo').on('keyup', function () {
+        let codigo = $(this).val();
+        ValidaCodigoImovel.get(codigo);
+    });
+    $('.codigo').on('blur', function () {
+        if ($(this).hasClass('has-codigo')) {
+            $('.codigo').focus();
+        }
+    })
 });
 
 
@@ -94,6 +103,33 @@ const TipoNegocio = (function () {
                 $('#ipt-aluguel').show();
                 $('#ipt-aluguel').find('input').focus();
                 $('#ipt-aluguel').find('input').val('');
+            }
+        }
+    }
+})();
+
+const ValidaCodigoImovel = (function () {
+    return {
+        get: function (codigo) {
+            if (codigo.length >= 1) {
+                let url = '/imoveis/adicionar/';
+                $.post(url, {codigo: codigo}, function (response) {
+                    if (response === 1) {
+                        $('.codigo').parent().addClass('has-error');
+                        $('.codigo').addClass('has-codigo');
+                        $('#codigo-help-block').show();
+                    } else {
+                        $('.codigo').parent().removeClass('has-error');
+                        $('#codigo-help-block').hide();
+                        $('.codigo').removeClass('has-codigo');
+                    }
+                }).fail(function (error) {
+                    console.log(error);
+                })
+            } else {
+                $('.codigo').parent().removeClass('has-error');
+                $('#codigo-help-block').hide();
+                $('.codigo').removeClass('has-codigo');
             }
         }
     }
