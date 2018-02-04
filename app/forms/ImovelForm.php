@@ -6,6 +6,7 @@ use Phalcon\Forms\Element\TextArea;
 use Phalcon\Forms\Element\Radio;
 use Phalcon\Forms\Element\File;
 use Phalcon\Forms\Element\Select;
+use Phalcon\Forms\Element\Check;
 
 class ImovelForm extends Form
 {
@@ -28,11 +29,21 @@ class ImovelForm extends Form
             ])
         );
 
+        $this->add(new Check("publicado"));
+        $this->add(new Text("data_expiracao", ["disabled" => true]));
+
         $this->add(new Text("codigo"));
         $this->add(new Text("titulo_imovel"));
         $this->add(new TextArea("descricao"));
         $this->add(new Text("logradouro"));
-        $this->add(new Text("bairro"));
+        $this->add(new Select("bairro", Bairro::find(), [
+            "useEmpty" => true,
+            "emptyText" => "Selecione",
+            "using" => ["id", "nome"]
+        ]));
+        $this->add(new Select("logradouro", [
+            "" => "Selecione um Bairro"
+        ]));
         $this->add(new Text("numero"));
 
         $venda = new Radio("venda", ["name" => "tipo_negocio", "value" => "V"]);
