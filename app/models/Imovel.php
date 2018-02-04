@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Model;
+use Phalcon\Mvc\Model\Relation;
 
 class Imovel extends Model
 {
@@ -28,6 +29,12 @@ class Imovel extends Model
         $this->belongsTo('tipo_imovel_id','TipoImovel', 'id');
         $this->belongsTo('filial_id', 'Filial', 'id');
         $this->belongsTo('logradouro_id', 'Logradouro', 'id');
+        $this->hasMany("id", "ImovelImagem", "imovel_id", [
+            "foreignKey" => [
+                "action" => Relation::ACTION_CASCADE,
+            ]
+        ]);
+
     }
 
     public function getId() {

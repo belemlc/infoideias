@@ -1,11 +1,14 @@
-a:3:{i:0;s:1557:"<!DOCTYPE html>
+a:3:{i:0;s:1705:"<!DOCTYPE html>
 <html>
     <head>
         <title>Avaliação InfoIdéias</title>
         <meta charset="utf-8">
-        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
-        <link type="text/css" rel="stylesheet" href="/css/font-awesome.min.css">
-        <link type="text/css" rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/chosen.min.css">
+        <link rel="stylesheet" href="/css/chosen-bootstrap.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="/css/styles.css">
     </head>
     <body>
         <nav class="navbar navbar-inverse">
@@ -27,10 +30,14 @@ a:3:{i:0;s:1557:"<!DOCTYPE html>
                 </div>
             </div>
         </nav>
-        ";s:7:"content";N;i:1;s:274:"
+        ";s:7:"content";N;i:1;s:540:"
         <!--Scripts-->
         <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script src="/js/chosen.jquery.min.js"></script>
+        <script src="/js/jquery.mask.min.js"></script>
+        <script src="/js/bootstrap-datepicker.min.js"></script>
+        <script src="/js/bootstrap-datepicker.pt-BR.min.js" charset="UTF-8"></script>
         <script type="text/javascript" src="/js/scripts.js"></script>
     </body>
 </html>";}

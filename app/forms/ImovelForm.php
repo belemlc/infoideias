@@ -82,7 +82,7 @@ class ImovelForm extends Form
         $this->add($venda);
         $this->add($aluguel);
 
-        $this->add(new File('imovel_imagem'));
+        $this->add(new File('imovel_imagem', ["accept" => "image/*"]));
 
         $attr_valor_venda = [];
         if ($imovel && $imovel->valor_aluguel > 0) {

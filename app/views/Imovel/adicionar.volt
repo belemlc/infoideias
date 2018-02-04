@@ -5,7 +5,7 @@
 <div class="container">
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-home"></i></a></li>
-        <li><a href="/imoveis">Imoveis</a></li>
+        <li><a href="/imoveis">Imóveis</a></li>
         <li class="active">Adicionar</li>
     </ol>
     <div class="panel panel-default">

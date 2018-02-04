@@ -2,9 +2,14 @@
 
 {% block content %}
 <div class="container">
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li class="active">Imóveis</li>
+    </ol>
     <div class="row">
         <div class="col-xs-12 text-center">
             <h1>Listar Imóveis</h1>
+            <p><?php $this->flashSession->output() ?></p>
         </div>
     </div>
     <div class="row">
@@ -27,7 +32,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-3"><input type="submit" value="Buscar" class="btn btn-success"></div>
                             <div class="col-xs-12 col-sm-3 text-right">
-                                {{ link_to(['for':'site.imovel.adicionar'], 'Adicionar Novo', "class": "btn btn-primary") }}
+                                {{ link_to(['for':'site.imovel.adicionar'], '<i class="fa fa-plus"></i> Adicionar Novo', "class": "btn btn-primary") }}
                             </div>
                         </div>
                         <br>
@@ -39,6 +44,7 @@
                                         <th>Código</th>
                                         <th>Tipo de Imóvel</th>
                                         <th>Valor do Imóvel</th>
+                                        <th>Valor do Aluguel</th>
                                         <th>Ações</th>
                                     </tr>
                                     {% for imovel in imoveis %}
@@ -46,7 +52,11 @@
                                         <td>{{imovel.codigo}}</td>
                                         <td>{{imovel.getTipoImovel().nome}}</td>
                                         <td>R$ {{imovel.getValorVenda()}}</td>
-                                        <td></td>
+                                        <td>R$ {{imovel.getValorAluguel()}}</td>
+                                        <td width="160">
+                                            {{ link_to("imoveis/editar/" ~imovel.id, '<i class="fa fa-edit"></i> Editar', "class": "btn btn-sm btn-link") }}
+                                            {{ link_to("imoveis/remover/" ~imovel.id, '<i class="fa fa-trash"></i> Excluir', "class": "btn btn-sm btn-link remover") }}
+                                        </td>
                                     </tr>
                                     {% endFor %}
                                 </table>

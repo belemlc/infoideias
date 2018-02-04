@@ -12,6 +12,7 @@ class ImovelImagem extends Model
     public function initialize()
     {
         $this->setSource("imovel_imagem");
+        $this->belongsTo('imovel_id', 'Imovel', 'id');
     }
 
 }

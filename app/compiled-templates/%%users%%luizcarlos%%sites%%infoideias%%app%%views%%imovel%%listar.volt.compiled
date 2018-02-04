@@ -3,9 +3,12 @@
     <head>
         <title>Avaliação InfoIdéias</title>
         <meta charset="utf-8">
-        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
-        <link type="text/css" rel="stylesheet" href="/css/font-awesome.min.css">
-        <link type="text/css" rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/chosen.min.css">
+        <link rel="stylesheet" href="/css/chosen-bootstrap.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="/css/styles.css">
     </head>
     <body>
         <nav class="navbar navbar-inverse">
@@ -29,9 +32,14 @@
         </nav>
         
 <div class="container">
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li class="active">Imovel</li>
+    </ol>
     <div class="row">
         <div class="col-xs-12 text-center">
             <h1>Listar Imóveis</h1>
+            <p><?php $this->flashSession->output() ?></p>
         </div>
     </div>
     <div class="row">
@@ -54,7 +62,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-3"><input type="submit" value="Buscar" class="btn btn-success"></div>
                             <div class="col-xs-12 col-sm-3 text-right">
-                                <?= $this->tag->linkTo([['for' => 'site.imovel.adicionar'], 'Adicionar Novo', 'class' => 'btn btn-primary']) ?>
+                                <?= $this->tag->linkTo([['for' => 'site.imovel.adicionar'], '<i class="fa fa-plus"></i> Adicionar Novo', 'class' => 'btn btn-primary']) ?>
                             </div>
                         </div>
                         <br>
@@ -66,6 +74,7 @@
                                         <th>Código</th>
                                         <th>Tipo de Imóvel</th>
                                         <th>Valor do Imóvel</th>
+                                        <th>Valor do Aluguel</th>
                                         <th>Ações</th>
                                     </tr>
                                     <?php foreach ($imoveis as $imovel) { ?>
@@ -73,7 +82,11 @@
                                         <td><?= $imovel->codigo ?></td>
                                         <td><?= $imovel->getTipoImovel()->nome ?></td>
                                         <td>R$ <?= $imovel->getValorVenda() ?></td>
-                                        <td></td>
+                                        <td>R$ <?= $imovel->getValorAluguel() ?></td>
+                                        <td width="160">
+                                            <?= $this->tag->linkTo(['imoveis/editar/' . $imovel->id, '<i class="fa fa-edit"></i> Editar', 'class' => 'btn btn-sm btn-link']) ?>
+                                            <?= $this->tag->linkTo(['imoveis/remover/' . $imovel->id, '<i class="fa fa-trash"></i> Excluir', 'class' => 'btn btn-sm btn-link remover']) ?>
+                                        </td>
                                     </tr>
                                     <?php } ?>
                                 </table>
@@ -89,6 +102,10 @@
         <!--Scripts-->
         <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script src="/js/chosen.jquery.min.js"></script>
+        <script src="/js/jquery.mask.min.js"></script>
+        <script src="/js/bootstrap-datepicker.min.js"></script>
+        <script src="/js/bootstrap-datepicker.pt-BR.min.js" charset="UTF-8"></script>
         <script type="text/javascript" src="/js/scripts.js"></script>
     </body>
 </html>

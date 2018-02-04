@@ -121,6 +121,7 @@ class ImovelController extends Controller
 	    $imovel = Imovel::findFirstById($id);
 
 	    if ($imovel->delete()) {
+            $this->flash->success("Imovel excluído com sucesso!");
             $this->response->redirect('imoveis/');
         }
     }
