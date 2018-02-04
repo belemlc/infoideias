@@ -6,20 +6,23 @@ class Logradouro extends Model
 {
 
     public $id;
-    public $bairro_id;
+    public $bairro;
     public $tipo;
     public $nome;
 
     public function initialize() {
         $this->setSource('logradouro');
+        $this->belongsTo('bairro_id', 'Bairro', 'id');
+        $this->hasMany('id', 'Imovel', 'logradouro_id');
     }
 
-    public function getBairroId() {
-        return $this->bairro_id;
+    public function getBairro() {
+        return $this->getRelated('Bairro');
     }
 
-    public function setBairroId($bairro_id) {
-        $this->bairro_id = $bairro_id;
+    public function setBairro($bairro) {
+        $this->__set('Bairro', $bairro);
+        return $this;
     }
 
     public function getTipo() {
@@ -27,7 +30,9 @@ class Logradouro extends Model
     }
 
     public function setTipo($tipo) {
-        $this->tipo = $tipo;
+        $_logradouro = explode(' ', $tipo);
+        $_tipo = $_logradouro[0];
+        $this->tipo =  $_tipo;
     }
 
     public function getNome() {
@@ -35,9 +40,10 @@ class Logradouro extends Model
     }
 
     public function setNome($nome) {
-        $this->nome = $nome;
+        $_logradouro = explode(' ', $nome);
+        array_shift($_logradouro);
+        $_nome = implode(' ', $_logradouro);
+        $this->nome = $_nome;
     }
-
-
 
 }

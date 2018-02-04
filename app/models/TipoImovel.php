@@ -8,6 +8,7 @@ class TipoImovel extends Model {
     public $nome;
     
     public function initalize() {
+        $this->setSource('tipo_imovel');
         $this->hasMany('id', 'Imovel', 'tipo_imovel_id');
     }
 

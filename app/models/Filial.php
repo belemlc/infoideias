@@ -10,6 +10,7 @@ class Filial extends Model
 
     public function initialize() {
         $this->setSource('filial');
+        $this->hasMany('id', 'Imovel', 'filial_id');
     }
 
     public function getNome() {
