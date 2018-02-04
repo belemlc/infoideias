@@ -1,0 +1,9 @@
+.nav-tabs.no-border {
+    border-bottom: 0 !important;
+}
+#codigo-help-block {
+    display: none;
+}
+.codigo {
+    text-transform: uppercase;
+}
