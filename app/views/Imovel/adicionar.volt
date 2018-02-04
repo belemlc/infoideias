@@ -69,7 +69,8 @@
                                                 <div class="cold-sm-2 col-md-2">
                                                     <div class="form-group">
                                                         <label for="">Código</label>
-                                                        {{ form.render('codigo', ['class': 'form-control']) }}
+                                                        {{ form.render('codigo', ['class': 'form-control codigo']) }}
+                                                        <small id="codigo-help-block" class="help-block" style="display: none;">Código já cadastrado</small>
                                                     </div>
                                                 </div>
                                                 <div class="cold-sm-4 col-md-4">
@@ -81,7 +82,7 @@
                                                 <div class="cold-sm-2 col-md-2">
                                                     <label>Expira em</label>
                                                     <div class="input-group">
-                                                        {{ form.render('expirado', ['class': 'form-control expirado']) }}
+                                                        {{ form.render('data_expiracao', ['class': 'form-control data_expiracao']) }}
                                                         <div class="input-group-addon">
                                                             <span class="fa fa-calendar"></span>
                                                         </div>
