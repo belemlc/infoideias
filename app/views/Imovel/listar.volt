@@ -13,7 +13,6 @@
         </div>
     </div>
     <div class="row">
-        
         <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -21,19 +20,25 @@
                 </div>
                 <div class="panel-body">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-3" class="input-group">
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="col-xs-12 col-sm-3" class="input-group">
-                                <select name="tipo_imovel_id" id="tipo_imovel_id" class="form-control">
-                                    <option value="1">Casa</option>
-                                    <option value="2">Apartamento</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-12 col-sm-3"><input type="submit" value="Buscar" class="btn btn-success"></div>
-                            <div class="col-xs-12 col-sm-3 text-right">
-                                {{ link_to(['for':'site.imovel.adicionar'], '<i class="fa fa-plus"></i> Adicionar Novo', "class": "btn btn-primary") }}
-                            </div>
+                            <form>
+                                <div class="col-xs-12 col-sm-3" class="input-group">
+                                    <input type="text" name="search" class="form-control">
+                                </div>
+                                <div class="col-xs-12 col-sm-3" class="input-group">
+                                    <select name="tipo_imovel" class="form-control">
+                                        <option value="">Selecione</option>
+                                        {%for item in tipos %}
+                                            <option value="{{imovel.id}}">{{item.nome}}</option>
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 col-sm-3">
+                                    <input type="submit" value="Buscar" class="btn btn-success">
+                                </div>
+                                <div class="col-xs-12 col-sm-3 text-right">
+                                    {{ link_to(['for':'site.imovel.adicionar'], '<i class="fa fa-plus"></i> Adicionar Novo', "class": "btn btn-primary") }}
+                                </div>
+                            </form>
                         </div>
                         <br>
                         <div class="row">
